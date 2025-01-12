@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home or class work</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 24px;
+        color: #007bff;
+        margin-top: 20px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+        margin: 20px 0;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    #add {
+        position: fixed;
+        right: 15px;
+        bottom: 15px;
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ProgramTable {
+        border: 2px solid #007bff;
+        background-color: #f9f9f9;
+        font-size: 14px;
+    }
+
+    .ProgramTable th, .ProgramTable td {
+        padding: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .ProgramTable tr:nth-child(1) {
+        background-color: #007bff;
+        color: white;
+        font-weight: bold;
+    }
+
+    .ProgramTable tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background-color: #fff;
+        width: 90%;
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        max-height: 90%;
+        overflow-y: auto;
+    }
+
+    .modal-content input, .modal-content select {
+        margin-bottom: 15px;
+        width: 90%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+    }
+
+    .modal-content input:focus, .modal-content select:focus {
+        border-color: #007bff;
+        outline: none;
+        background: #e7f4ff;
+    }
+
+    .modal-content button {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        width: 90%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-content button:hover {
+        background-color: #0056b3;
+    }
+
+    #WorksTable td {
+        width: 16.66%;
+        padding: 8px;
+    }
+
+    #rest {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        background: #ff5757;
+        color: white;
+        font-weight: bold;
+        border: none;
+        padding: 5px 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    #remove{
+        position: fixed;
+        bottom: 15px;
+        left: 15px;
+        background: #ff5757;
+        color: white;
+        font-weight: bold;
+        border: none;
+        padding: 5px 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);    
+    }
+    
+    #rest:hover {
+        background: #cc0000;
+    }
+    
+    td[data-subject]:hover {
+        background-color: #f2f2f2;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    /* Scrollbar customization */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #007bff;
+        border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #0056b3;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+</style>
+</head>
+<body>
+    <button id="rest" onclick="rest()">rest</button>
+    <h2>The program</h2>
+    <div id="ProgramContainer"></div>
+    <h2>Works</h2>
+    <table id="WorksTable" border="1">
+        <tr>
+            <th colspan="3">Home works</th>
+            <th colspan="3">Assignment</th>
+        </tr>
+        <tr>
+            <td>Normal</td>
+            <td>Must done now</td>
+            <td>Hard</td>
+            <td>Normal</td>
+            <td>Must done now</td>
+            <td>Hard</td>
+        </tr>   
+        <tr>     
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>       
+        </tr>     
+    </table>    
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            Enter the name of subject
+            <select id="identifier">
+    <option value="" disabled selected>Select Subject</option>
+</select><br>
+            Is it homework or assignment
+            <select id="WhichWork">              
+              <option value="Homework">Homework</option>
+              <option value="Assignment">Assignment</option>
+            </select><br>
+            when It must done
+            <input id = "date" type="date"><br>
+            Is it easy or hard
+            <select id="EasyHard">              
+              <option value="Easy">Easy</option>
+              <option value="Hard">Hard</option>
+            </select><br>            
+            <button onclick="closeModal('add')">Done</button>
+        </div>
+    </div>
+    <div id="RM" class="modal">
+        <div class="modal-content">
+        Enter the name of subject that you want to remove
+        <select id="NS">
+    <option value="" disabled selected>Select Subject</option>
+</select>
+        <button onclick="closeModal('remove')">Done</button>
+        </div>
+    </div>
+    <button id = "remove" onclick="openModal('remove')">remove</button>
+    <button id="add" onclick="openModal('add')">+</button>
+    <script>
+    const $ = (selector) => document.getElementById(selector);
+
+    const identifier = $("identifier");
+    const ProgramContainer = $("ProgramContainer");
+    const WhichWork = $("WhichWork");
+    const date = $("date");
+    const EasyHard = $("EasyHard");
+    const WorksTable = $("WorksTable");
+    const NS = $("NS");
+
+    let Works = JSON.parse(localStorage.getItem("Works")) || [];
+
+    var TheProgram = [
+    [["No"], ["Monday"], ["Tuesday"], ["Wednesday"], ["Thursday"], ["Friday"]],
+    [[1], ["Afan"], ["Amharic"], ["Geography"], ["English"], ["Geography"]],
+    [[2], ["History"], ["English"], ["History"], ["Chemistry"], ["HP"]],
+    [[3], ["Economy"], ["Afan"], ["Physics"], ["Citizen"], ["HP"]],
+    [[4], ["It"], ["Biology"], ["English"], ["Economy"], ["English"]],
+    [[5], ["Biology"], ["Maths"], ["Maths"], ["History"], ["Maths"]],
+    [[6], ["Geography"], ["Citizen"], ["Amharic"], ["Maths"], ["It"]],
+    [[7], ["Biology"], ["Physics"], ["Chemistry"], ["Physics"], ["Chemistry"]]
+];
+    const Subjects = [
+        ["Maths"], ["English"], ["Geography"], ["History"],
+        ["Physics"], ["Biology"], ["Chemistry"],
+        ["Economy"], ["Citizen"], ["IT"], ["HP"],
+        ["Amharic"], ["Afan"]
+    ];
+
+    function Organize_Program() {
+        const table = document.createElement("table");
+        table.classList.add("ProgramTable");
+        table.border = "1";
+        ProgramContainer.innerHTML = ""; // Clear previous program
+        ProgramContainer.appendChild(table);
+
+        for (const row of TheProgram) {
+            const tr = document.createElement("tr");
+            table.appendChild(tr);
+
+            for (const cell of row) {
+                const td = document.createElement("td");
+                td.textContent = cell;
+                tr.appendChild(td);
+                td.dataset.subject = cell; // Attach subject data
+            }
+        }
+    }
+
+    function Organize_WorksTable() {
+    const rows = WorksTable.querySelectorAll("tr");
+    const workCells = rows[2].querySelectorAll("td");
+    workCells.forEach((cell) => (cell.textContent = "")); // Clear content
+
+    // Track which subjects have already been added to avoid duplicates
+    const addedSubjects = {};
+
+    // Organize Works
+    Works.forEach((work) => {
+        const dueDate = new Date(work.FinalDay);
+        dueDate.setDate(dueDate.getDate() - 1); // Subtract one day from the due date
+        const isDueToday = dueDate.toDateString() === new Date().toDateString();
+
+        // Determine the column index based on the work type, difficulty, and adjusted due date
+        const columnIndex = isDueToday
+            ? work.WhichIs === "Homework"
+                ? 1 // Homework due today
+                : 4 // Assignment due today
+            : work.WhichIs === "Homework"
+                ? work.EasyHard === "Hard"
+                    ? 2 // Hard Homework
+                    : 0 // Normal Homework
+                : work.EasyHard === "Hard"
+                    ? 5 // Hard Assignment
+                    : 3; // Normal Assignment
+
+        // Only add the subject if it hasn't been added to this column
+        if (!addedSubjects[columnIndex]) {
+            addedSubjects[columnIndex] = [];
+        }
+        if (!addedSubjects[columnIndex].includes(work.SubjectName)) {
+            addedSubjects[columnIndex].push(work.SubjectName);
+
+            // Add the subject to the appropriate column
+            const cell = WorksTable.rows[2].cells[columnIndex];
+            cell.textContent += cell.textContent
+                ? `, ${work.SubjectName}` // Add comma if there's already content
+                : work.SubjectName;
+        }
+    });
+}
+    
+    function Organize_ProgramColor() {
+    const cells = document.querySelectorAll(".ProgramTable td");
+
+    // Clear previous highlights
+    cells.forEach((cell) => {
+        cell.style.backgroundColor = ""; // Reset cell background color
+        cell.title = ""; // Clear tooltips
+    });
+
+    Works.forEach((work) => {
+        const dueDate = new Date(work.FinalDay);
+        const dayIndex = dueDate.getDay(); // Get the day of the week (0 = Sunday, 1 = Monday, etc.)
+
+        // Map day index to program table column index (Monday = 1, Tuesday = 2, etc.)
+        const dayColumnIndex = dayIndex === 0 ? 6 : dayIndex; // Map Sunday (0) to the last column
+
+        // Highlight only the cells in the matching day column
+        cells.forEach((cell, cellIndex) => {
+            const cellRowIndex = cell.parentElement.rowIndex; // Get the row index of the cell
+            const cellColumnIndex = cell.cellIndex; // Get the column index of the cell
+
+            // Ensure the cell belongs to the correct day column and matches the subject
+            if (
+                cellColumnIndex === dayColumnIndex &&
+                cell.textContent.toLowerCase() === work.SubjectName.toLowerCase()
+            ) {
+                cell.style.backgroundColor = "yellow"; // Highlight cell in yellow
+                cell.title = `Due: ${work.FinalDay}\nType: ${work.WhichIs}\nDifficulty: ${work.EasyHard}`; // Add tooltip
+            }
+        });
+    });
+}
+    
+    function openModal(a) {
+        if(a == "add") {
+            $("modal").style.display = "flex";
+        }else {
+             $("RM").style.display = "flex";
+        }        
+    }
+
+
+    function closeModal(a) {
+        if(a == "add") {
+            $("modal").style.display = "none";
+        }else {
+            $("RM").style.display = "none";
+        }        
+        
+    }   
+    
+    
+    // Populate the NS selector dynamically based on existing works
+function populateRemoveSubjects() {
+    const NS = $("NS");
+    NS.innerHTML = '<option value="" disabled selected>Select Subject</option>'; // Clear previous options and add placeholder
+    Works.forEach((work) => {
+        const option = document.createElement("option");
+        option.value = work.SubjectName;
+        option.textContent = work.SubjectName;
+        NS.appendChild(option);
+    });
+}
+
+// Call populateRemoveSubjects whenever the Works array changes
+function saveWork() {
+    if (!identifier.value || !date.value) {
+        alert("All fields must be filled!");
+        return;
+    }
+
+    const work = {
+        SubjectName: identifier.value,
+        WhichIs: WhichWork.value,
+        FinalDay: date.value,
+        EasyHard: EasyHard.value,
+    };
+
+    Works.push(work);
+    localStorage.setItem("Works", JSON.stringify(Works));
+
+    Organize_WorksTable();
+    Organize_ProgramColor();
+    populateRemoveSubjects(); // Update NS selector
+    closeModal('add');
+}
+
+function RemoveWork() {
+    if (!NS.value) {
+        alert("Please select a subject to remove!");
+        return;
+    }
+
+    Works = Works.filter((work) => work.SubjectName !== NS.value);
+
+    localStorage.setItem("Works", JSON.stringify(Works));
+    Organize_WorksTable();
+    Organize_ProgramColor();
+    populateRemoveSubjects(); // Update NS selector
+    closeModal('remove');
+}
+
+// Initialize NS selector during page load
+populateRemoveSubjects();
+    
+    function rest() {
+        var confirmation = confirm("Are you sure? If you press ok, all works will be deleted.");
+        if (!confirmation) return;
+        Works = [];
+        localStorage.setItem("Works", JSON.stringify(Works));
+        Organize_Program();
+        Organize_ProgramColor();
+        Organize_WorksTable();
+    }
+     // Populate the subject selector dynamically
+function populateSubjects() {
+    const identifier = $("identifier");
+    identifier.innerHTML = '<option value="" disabled selected>Select Subject</option>'; // Clear previous options and add placeholder
+    Subjects.forEach((subject) => {
+        const option = document.createElement("option");
+        option.value = subject[0];
+        option.textContent = subject[0];
+        identifier.appendChild(option);
+    });
+}
+
+// Call populateSubjects during initialization
+populateSubjects();   
+    
+    $("modal").querySelector("button").addEventListener("click", saveWork);   
+    $("RM").querySelector("button").addEventListener("click", RemoveWork);        
+    Organize_Program();
+    Organize_ProgramColor();
+    Organize_WorksTable();
+</script>
+</body>
+</html>
