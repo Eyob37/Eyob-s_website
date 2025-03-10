@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name = "keywords" content = "eyob web, website, best">
-    <meta name = "description" content = "this eyob's website or web helps to you manage your home work and class work">
-    <title>Home or class work</title>
+    <title>Page title</title>
     <style>
     body {
         font-family: Arial, sans-serif;
@@ -190,10 +188,6 @@
     ::-webkit-scrollbar-track {
         background: #f1f1f1;
     }
-    h2{
-        text-align: center;
-        color: blue;
-    }
 </style>
 </head>
 <body>
@@ -268,16 +262,16 @@
 
     let Works = JSON.parse(localStorage.getItem("Works")) || [];
 
-    var TheProgram = [
-    [["No"], ["Monday"], ["Tuesday"], ["Wednesday"], ["Thursday"], ["Friday"]],
-    [[1], ["Afan"], ["Amharic"], ["Geography"], ["English"], ["Geography"]],
-    [[2], ["History"], ["English"], ["History"], ["Chemistry"], ["HP"]],
-    [[3], ["Economy"], ["Afan"], ["Physics"], ["Citizen"], ["HP"]],
-    [[4], ["It"], ["Biology"], ["English"], ["Economy"], ["English"]],
-    [[5], ["Biology"], ["Maths"], ["Maths"], ["History"], ["Maths"]],
-    [[6], ["Geography"], ["Citizen"], ["Amharic"], ["Maths"], ["It"]],
-    [[7], ["Biology"], ["Physics"], ["Chemistry"], ["Physics"], ["Chemistry"]]
-];
+    const TheProgram = [
+        ["No", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ],
+        [1,"Maths","English","Physics","HP","Maths"],
+        [2,"History","History","Economy","Chemistry","Afan"],
+        [3,"Civic","Biology","Geography","Afan","Biology"],
+        [4,"Geography","IT","English","History","Economy"],
+        [5,"English","HP","Chemistry","IT","Physics",],
+        [6,"Biology","Physics","Maths","Geography","Chemistry"],
+        [7,"Amharic","Civic","Amharic","Maths","English"],
+    ];
     const Subjects = [
         ["Maths"], ["English"], ["Geography"], ["History"],
         ["Physics"], ["Biology"], ["Chemistry"],
